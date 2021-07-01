@@ -1,6 +1,6 @@
 matplotlib==3.3.3
 numpy==1.19.4
-torch == 1.7.1
+torch == 1.9.0
 torchvision==0.8.2
 torchaudio==0.7.2
 nibabel==3.2.1
@@ -14,4 +14,6 @@ PyYAML==5.4.1
 scikit_learn==0.24.1
 tensorboardX==2.1
 vtk_visualizer==0.9.6
-h5py==3.2.1
+h5py==3.1.0
+folium==0.2.1
+imgaug==0.2.5
