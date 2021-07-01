@@ -71,6 +71,6 @@ dataset:
 
 demo:
   src_pcd: assets/Scan_1.pts
-  tgt_pcd: assets/cloud_bin_34.pth
+  tgt_pcd: assets/Scan_2.pts
   n_points: 10000000000
 
