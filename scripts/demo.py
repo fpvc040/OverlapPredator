@@ -9,7 +9,6 @@ import numpy as np
 from easydict import EasyDict as edict
 from torch.utils.data import Dataset
 from torch import optim, nn
-torch.cuda._lazy_init()
 import open3d as o3d
 
 cwd = os.getcwd()
@@ -48,12 +47,12 @@ class ThreeDMatchDemo(Dataset):
         
         #src_pcd = torch.load(self.src_path).astype(np.float32)
         #tgt_pcd = torch.load(self.tgt_path).astype(np.float32)   
-        
+        torch.cuda.empty_cache()
         
         src_pcd = o3d.io.read_point_cloud(self.src_path)
         tgt_pcd = o3d.io.read_point_cloud(self.tgt_path)
-        src_pcd = src_pcd.voxel_down_sample(0.05)
-        tgt_pcd = tgt_pcd.voxel_down_sample(0.05)
+        src_pcd = src_pcd.voxel_down_sample(0.5)
+        tgt_pcd = tgt_pcd.voxel_down_sample(0.5)
         src_pcd = np.array(src_pcd.points).astype(np.float32)
         tgt_pcd = np.array(tgt_pcd.points).astype(np.float32)
 
