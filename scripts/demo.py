@@ -137,7 +137,7 @@ def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_sal
         if not vis3.poll_events():
             break
         vis3.update_renderer()
-
+    o3d.io.write_point_cloud("transformed.pcd", src_pcd_after)
     # vis1.destroy_window()
     # vis2.destroy_window()
     # vis3.destroy_window()    
