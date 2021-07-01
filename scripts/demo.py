@@ -45,21 +45,22 @@ class ThreeDMatchDemo(Dataset):
     def __getitem__(self,item): 
         # get pointcloud
         
-        # src_pcd = torch.load(self.src_path).astype(np.float32)
-        # tgt_pcd = torch.load(self.tgt_path).astype(np.float32)   
+        
         torch.cuda.empty_cache()
+        src_pcd = torch.load(self.src_path).astype(np.float32)
+        tgt_pcd = torch.load(self.tgt_path).astype(np.float32)
+        print(src_pcd[:10])   
         
-        src_pcd = o3d.io.read_point_cloud(self.src_path)
-        tgt_pcd = o3d.io.read_point_cloud(self.tgt_path)
-        src_pcd = src_pcd.voxel_down_sample(0.5)
-        tgt_pcd = tgt_pcd.voxel_down_sample(0.5)
-        
-        src_pcd = np.array(src_pcd.points).astype(np.float32)
-        tgt_pcd = np.array(tgt_pcd.points).astype(np.float32)
-        factor=10
-        src_pcd = src_pcd[::factor]
-        tgt_pcd = tgt_pcd[::factor]
+        src_pcd_diff = o3d.io.read_point_cloud("assets/Scan_1.pts")
+        tgt_pcd_diff = o3d.io.read_point_cloud("assets/Scan_2.pts")
+        src_pcd_diff = src_pcd.voxel_down_sample(0.5)
+        tgt_pcd_diff = tgt_pcd.voxel_down_sample(0.5)
+                    
+        src_pcd_diff = np.array(src_pcd.points).astype(np.float32)
+        tgt_pcd_diff = np.array(tgt_pcd.points).astype(np.float32)
 
+        print(src_pcd_diff[:10])   
+        
 
         src_feats=np.ones_like(src_pcd[:,:1]).astype(np.float32)
         tgt_feats=np.ones_like(tgt_pcd[:,:1]).astype(np.float32)
