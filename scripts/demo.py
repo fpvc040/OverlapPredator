@@ -9,6 +9,7 @@ import numpy as np
 from easydict import EasyDict as edict
 from torch.utils.data import Dataset
 from torch import optim, nn
+torch.cuda._lazy_init()
 import open3d as o3d
 
 cwd = os.getcwd()
@@ -104,17 +105,17 @@ def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_sal
     src_pcd_after.transform(tsfm)
 
     vis1 = o3d.visualization.Visualizer()
-    vis1.create_window(window_name='Input', width=960, height=540, left=0, top=0)
+    #vis1.create_window(window_name='Input', width=960, height=540, left=0, top=0)
     vis1.add_geometry(src_pcd_before)
     vis1.add_geometry(tgt_pcd_before)
 
     vis2 = o3d.visualization.Visualizer()
-    vis2.create_window(window_name='Inferred overlap region', width=960, height=540, left=0, top=600)
+    #vis2.create_window(window_name='Inferred overlap region', width=960, height=540, left=0, top=600)
     vis2.add_geometry(src_pcd_overlap)
     vis2.add_geometry(tgt_pcd_overlap)
 
     vis3 = o3d.visualization.Visualizer()
-    vis3.create_window(window_name ='Our registration', width=960, height=540, left=960, top=0)
+    #vis3.create_window(window_name ='Our registration', width=960, height=540, left=960, top=0)
     vis3.add_geometry(src_pcd_after)
     vis3.add_geometry(tgt_pcd_before)
     
@@ -137,9 +138,9 @@ def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_sal
             break
         vis3.update_renderer()
 
-    vis1.destroy_window()
-    vis2.destroy_window()
-    vis3.destroy_window()    
+    # vis1.destroy_window()
+    # vis2.destroy_window()
+    # vis3.destroy_window()    
 
 
 def main(config, demo_loader):
