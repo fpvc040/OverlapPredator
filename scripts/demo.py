@@ -49,7 +49,7 @@ class ThreeDMatchDemo(Dataset):
         torch.cuda.empty_cache()
         src_pcd = torch.load(self.src_path).astype(np.float32)
         tgt_pcd = torch.load(self.tgt_path).astype(np.float32)
-        print(src_pcd[:10])   
+        print(type(src_pcd))   
         
         src_pcd_diff = o3d.io.read_point_cloud("assets/Scan_1.pts")
         tgt_pcd_diff = o3d.io.read_point_cloud("assets/Scan_2.pts")
