@@ -52,8 +52,8 @@ class ThreeDMatchDemo(Dataset):
         
         src_pcd = o3d.io.read_point_cloud(self.src_path)
         tgt_pcd = o3d.io.read_point_cloud(self.tgt_path)
-        src_pcd = src_pcd.voxel_down_sample(0.025)
-        tgt_pcd = tgt_pcd.voxel_down_sample(0.025)
+        src_pcd = src_pcd.voxel_down_sample(0.05)
+        tgt_pcd = tgt_pcd.voxel_down_sample(0.05)
         src_pcd = np.array(src_pcd.points).astype(np.float32)
         tgt_pcd = np.array(tgt_pcd.points).astype(np.float32)
 
