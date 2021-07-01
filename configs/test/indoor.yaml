@@ -70,7 +70,7 @@ dataset:
   val_info: configs/indoor/val_info.pkl
 
 demo:
-  src_pcd: assets/cloud_bin_21.pth
+  src_pcd: assets/Scan_1.pts
   tgt_pcd: assets/cloud_bin_34.pth
   n_points: 10000000000
 
