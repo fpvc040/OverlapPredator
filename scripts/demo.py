@@ -139,6 +139,10 @@ def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_sal
         vis3.update_renderer()
     o3d.io.write_point_cloud("transformed.pcd", src_pcd_after)
     o3d.io.write_point_cloud("ref.pcd", tgt_pcd_before)
+    pcd_combined = o3d.geometry.PointCloud()
+    pcd_combined += tgt_pcd_before
+    pcd_combined += src_pcd_after
+    o3d.io.write_point_cloud("merged.pcd", pcd_combined)
     print("completed transform")
     # vis1.destroy_window()
     # vis2.destroy_window()
