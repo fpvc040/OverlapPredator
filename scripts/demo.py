@@ -56,8 +56,8 @@ class ThreeDMatchDemo(Dataset):
         src_pcd_diff = src_pcd_diff.voxel_down_sample(0.25)
         tgt_pcd_diff = tgt_pcd_diff.voxel_down_sample(0.25)
                     
-        src_pcd_diff = np.array(np.round(src_pcd_diff.points, 7)).astype(np.float32)
-        tgt_pcd_diff = np.array(np.round(tgt_pcd_diff.points, 7)).astype(np.float32)
+        src_pcd_diff = np.array(np.round(src_pcd_diff.points, 5)).astype(np.float32)
+        tgt_pcd_diff = np.array(np.round(tgt_pcd_diff.points, 5)).astype(np.float32)
 
         print(src_pcd_diff[:10])   
         
