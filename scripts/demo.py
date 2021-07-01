@@ -53,11 +53,11 @@ class ThreeDMatchDemo(Dataset):
         
         src_pcd_diff = o3d.io.read_point_cloud("assets/Scan_1.pts")
         tgt_pcd_diff = o3d.io.read_point_cloud("assets/Scan_2.pts")
-        src_pcd_diff = src_pcd.voxel_down_sample(0.5)
-        tgt_pcd_diff = tgt_pcd.voxel_down_sample(0.5)
+        src_pcd_diff = src_pcd_diff.voxel_down_sample(0.5)
+        tgt_pcd_diff = tgt_pcd_diff.voxel_down_sample(0.5)
                     
-        src_pcd_diff = np.array(src_pcd.points).astype(np.float32)
-        tgt_pcd_diff = np.array(tgt_pcd.points).astype(np.float32)
+        src_pcd_diff = np.array(src_pcd_diff.points).astype(np.float32)
+        tgt_pcd_diff = np.array(tgt_pcd_diff.points).astype(np.float32)
 
         print(src_pcd_diff[:10])   
         
