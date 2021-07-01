@@ -195,6 +195,7 @@ def ransac_pose_estimation(src_pcd, tgt_pcd, src_feat, tgt_feat, mutual = False,
             device = torch.device('cuda')
         else:
             device = torch.device('cpu')
+        device = torch.device('cpu')
         src_feat, tgt_feat = to_tensor(src_feat), to_tensor(tgt_feat)
         scores = torch.matmul(src_feat.to(device), tgt_feat.transpose(0,1).to(device)).cpu()
         selection = mutual_selection(scores[None,:,:])[0]
