@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 matplotlib = "*"
 numpy = "*"
-torch = "*"
+torch = "==1.8.1"
 torchvision = "*"
 torchaudio = "*"
 nibabel = "*"
@@ -23,6 +23,7 @@ scikit-learn = "*"
 tensorboard = "*"
 vtk-visualizer = "*"
 h5py = "*"
+tensorboardx = "*"
 
 [requires]
 python_version = "3.8"

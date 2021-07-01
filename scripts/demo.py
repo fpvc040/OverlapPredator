@@ -44,6 +44,7 @@ class ThreeDMatchDemo(Dataset):
 
     def __getitem__(self,item): 
         # get pointcloud
+        
         src_pcd = torch.load(self.src_path).astype(np.float32)
         tgt_pcd = torch.load(self.tgt_path).astype(np.float32)   
         
