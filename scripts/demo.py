@@ -51,10 +51,10 @@ class ThreeDMatchDemo(Dataset):
         # tgt_pcd = torch.load(self.tgt_path).astype(np.float32)
         # print(type(src_pcd))   
         
-        src_pcd_diff = o3d.io.read_point_cloud("assets/Scan_1.pts")
-        tgt_pcd_diff = o3d.io.read_point_cloud("assets/Scan_2.pts")
-        src_pcd_diff = src_pcd_diff.voxel_down_sample(0.1)
-        tgt_pcd_diff = tgt_pcd_diff.voxel_down_sample(0.1)
+        src_pcd_diff = o3d.io.read_point_cloud(self.src_path)
+        tgt_pcd_diff = o3d.io.read_point_cloud(self.tgt_path)
+        src_pcd_diff = src_pcd_diff.voxel_down_sample(0.5)
+        tgt_pcd_diff = tgt_pcd_diff.voxel_down_sample(0.5)
                     
         src_pcd_diff = np.array(np.round(src_pcd_diff.points, 6)) * 0.1
         tgt_pcd_diff = np.array(np.round(tgt_pcd_diff.points, 6)) * 0.1
@@ -106,6 +106,7 @@ def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_sal
 
     ########################################
     # 3. draw registrations
+    print("TSFM:", tsfm)
     src_pcd_after = copy.deepcopy(src_pcd_before)
     src_pcd_after.transform(tsfm)
 
