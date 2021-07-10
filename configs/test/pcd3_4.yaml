@@ -70,7 +70,7 @@ dataset:
   val_info: configs/indoor/val_info.pkl
 
 demo:
-  src_pcd: assets/1.pcd
-  tgt_pcd: assets/2.pcd
+  src_pcd: assets/3.pcd
+  tgt_pcd: assets/4.pcd
   n_points: 10000000000
 
