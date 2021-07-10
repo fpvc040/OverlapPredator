@@ -21,6 +21,7 @@ from lib.benchmark_utils import ransac_pose_estimation, to_o3d_pcd, get_blue, ge
 from lib.trainer import Trainer
 from lib.loss import MetricLoss
 import shutil
+from torch.nn import DataParallel
 setup_seed(0)
 
 
