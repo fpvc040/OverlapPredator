@@ -246,7 +246,7 @@ if __name__ == '__main__':
     demo_loader, _ = get_dataloader(dataset=demo_set,
                                         batch_size=config.batch_size,
                                         shuffle=False,
-                                        num_workers=0,
+                                        num_workers=1,
                                         neighborhood_limits=neighborhood_limits)
 
     # load pretrained weights
