@@ -57,8 +57,8 @@ class ThreeDMatchDemo(Dataset):
         src_pcd_diff = src_pcd_diff.voxel_down_sample(0.5)
         tgt_pcd_diff = tgt_pcd_diff.voxel_down_sample(0.5)
                     
-        src_pcd_diff = np.array(np.round(src_pcd_diff.points, 6)) * 0.1
-        tgt_pcd_diff = np.array(np.round(tgt_pcd_diff.points, 6)) * 0.1
+        src_pcd_diff = np.array(np.round(src_pcd_diff.points, 6)) * 0.01
+        tgt_pcd_diff = np.array(np.round(tgt_pcd_diff.points, 6)) * 0.01
 
         print(src_pcd_diff[:10])   
         
@@ -254,10 +254,10 @@ if __name__ == '__main__':
     assert config.pretrain != None
     state = torch.load(config.pretrain)
     config.model.load_state_dict(state['state_dict'])
-    if torch.cuda.device_count() > 1:
-        print("Let's use", torch.cuda.device_count(), "GPUs!")
-        # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
-        config.model = DataParallel(config.model)
+    # if torch.cuda.device_count() > 1:
+    #     print("Let's use", torch.cuda.device_count(), "GPUs!")
+    #     # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
+    #     config.model = DataParallel(config.model)
 
     # do pose estimation
     main(config, demo_loader)
