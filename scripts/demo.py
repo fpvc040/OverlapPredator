@@ -246,13 +246,17 @@ if __name__ == '__main__':
     demo_loader, _ = get_dataloader(dataset=demo_set,
                                         batch_size=config.batch_size,
                                         shuffle=False,
-                                        num_workers=1,
+                                        num_workers=6,
                                         neighborhood_limits=neighborhood_limits)
 
     # load pretrained weights
     assert config.pretrain != None
     state = torch.load(config.pretrain)
     config.model.load_state_dict(state['state_dict'])
+    if torch.cuda.device_count() > 1:
+        print("Let's use", torch.cuda.device_count(), "GPUs!")
+        # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
+        config.model = DataParallel(config.model)
 
     # do pose estimation
     main(config, demo_loader)
