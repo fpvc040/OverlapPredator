@@ -64,7 +64,7 @@ dataset:
   benchmark: 3DMatch
   root: data/indoor
   batch_size: 1 
-  num_workers: 6 
+  num_workers: 1 
   augment_noise: 0.0
   train_info: configs/indoor/train_info.pkl
   val_info: configs/indoor/val_info.pkl
