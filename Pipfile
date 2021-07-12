@@ -24,6 +24,7 @@ tensorboard = "*"
 vtk-visualizer = "*"
 h5py = "*"
 tensorboardx = "*"
+cupoch = "*"
 
 [requires]
 python_version = "3.8"
