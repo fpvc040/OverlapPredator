@@ -33,8 +33,8 @@ def preprocess_point_cloud(pcd, voxel_size):
 
 def prepare_dataset(voxel_size):
     print(":: Load two point clouds and disturb initial pose.")
-    source = cph.io.read_point_cloud("../../testdata/icp/cloud_bin_0.pcd")
-    target = cph.io.read_point_cloud("../../testdata/icp/cloud_bin_1.pcd")
+    source = cph.io.read_point_cloud("../assets/1.pcd")
+    target = cph.io.read_point_cloud("../assets/2.pcd")
     trans_init = np.asarray([[0.0, 0.0, 1.0, 0.0], [1.0, 0.0, 0.0, 0.0],
                              [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 0.0, 1.0]])
     source.transform(trans_init)
@@ -60,7 +60,7 @@ def execute_fast_global_registration(source_down, target_down, source_fpfh,
 if __name__ == "__main__":
     cph.utility.set_verbosity_level(cph.utility.Debug)
 
-    voxel_size = 0.05  # means 5cm for the dataset
+    voxel_size = 0.5  # means 5cm for the dataset
     source, target, source_down, target_down, source_fpfh, target_fpfh = \
             prepare_dataset(voxel_size)
 
