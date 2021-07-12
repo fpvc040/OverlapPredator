@@ -85,10 +85,12 @@ def lighter(color, percent):
 def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_saliency, tgt_saliency, tsfm):
     ########################################
     # 1. input point cloud
-    src_pcd_before = to_o3d_pcd(src_raw)
-    tgt_pcd_before = to_o3d_pcd(tgt_raw)
-    src_pcd_before.paint_uniform_color(get_yellow())
-    tgt_pcd_before.paint_uniform_color(get_blue())
+    #src_pcd_before = to_o3d_pcd(src_raw)
+    #tgt_pcd_before = to_o3d_pcd(tgt_raw)
+    src_pcd_before = o3d.io.read_point_cloud(self.src_path)
+    tgt_pcd_before = o3d.io.read_point_cloud(self.tgt_path)
+    #src_pcd_before.paint_uniform_color(get_yellow())
+    #tgt_pcd_before.paint_uniform_color(get_blue())
     src_pcd_before.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.3, max_nn=50))
     tgt_pcd_before.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.3, max_nn=50))
 
@@ -111,39 +113,39 @@ def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_sal
     src_pcd_after = copy.deepcopy(src_pcd_before)
     src_pcd_after.transform(tsfm)
 
-    vis1 = o3d.visualization.Visualizer()
-    #vis1.create_window(window_name='Input', width=960, height=540, left=0, top=0)
-    vis1.add_geometry(src_pcd_before)
-    vis1.add_geometry(tgt_pcd_before)
+    # vis1 = o3d.visualization.Visualizer()
+    # #vis1.create_window(window_name='Input', width=960, height=540, left=0, top=0)
+    # vis1.add_geometry(src_pcd_before)
+    # vis1.add_geometry(tgt_pcd_before)
 
-    vis2 = o3d.visualization.Visualizer()
-    #vis2.create_window(window_name='Inferred overlap region', width=960, height=540, left=0, top=600)
-    vis2.add_geometry(src_pcd_overlap)
-    vis2.add_geometry(tgt_pcd_overlap)
+    # vis2 = o3d.visualization.Visualizer()
+    # #vis2.create_window(window_name='Inferred overlap region', width=960, height=540, left=0, top=600)
+    # vis2.add_geometry(src_pcd_overlap)
+    # vis2.add_geometry(tgt_pcd_overlap)
 
-    vis3 = o3d.visualization.Visualizer()
-    #vis3.create_window(window_name ='Our registration', width=960, height=540, left=960, top=0)
-    vis3.add_geometry(src_pcd_after)
-    vis3.add_geometry(tgt_pcd_before)
+    # vis3 = o3d.visualization.Visualizer()
+    # #vis3.create_window(window_name ='Our registration', width=960, height=540, left=960, top=0)
+    # vis3.add_geometry(src_pcd_after)
+    # vis3.add_geometry(tgt_pcd_before)
     
-    while True:
-        vis1.update_geometry(src_pcd_before)
-        vis3.update_geometry(tgt_pcd_before)
-        if not vis1.poll_events():
-            break
-        vis1.update_renderer()
+    # while True:
+    #     vis1.update_geometry(src_pcd_before)
+    #     vis3.update_geometry(tgt_pcd_before)
+    #     if not vis1.poll_events():
+    #         break
+    #     vis1.update_renderer()
 
-        vis2.update_geometry(src_pcd_overlap)
-        vis2.update_geometry(tgt_pcd_overlap)
-        if not vis2.poll_events():
-            break
-        vis2.update_renderer()
+    #     vis2.update_geometry(src_pcd_overlap)
+    #     vis2.update_geometry(tgt_pcd_overlap)
+    #     if not vis2.poll_events():
+    #         break
+    #     vis2.update_renderer()
 
-        vis3.update_geometry(src_pcd_after)
-        vis3.update_geometry(tgt_pcd_before)
-        if not vis3.poll_events():
-            break
-        vis3.update_renderer()
+    #     vis3.update_geometry(src_pcd_after)
+    #     vis3.update_geometry(tgt_pcd_before)
+    #     if not vis3.poll_events():
+    #         break
+    #     vis3.update_renderer()
     o3d.io.write_point_cloud("transformed.pcd", src_pcd_after)
     o3d.io.write_point_cloud("ref.pcd", tgt_pcd_before)
     pcd_combined = o3d.geometry.PointCloud()
