@@ -10,4 +10,8 @@ tsfm = [[-0.26057848,-0.96492304,-0.03197459,-0.00271199],[0.96476801,-0.2590038
 print(tsfm)
 src_pcd_after = copy.deepcopy(src_pcd_before)
 src_pcd_after.transform(tsfm)
+pcd_combined = o3d.geometry.PointCloud()
+pcd_combined += tgt_pcd_before
+pcd_combined += src_pcd_after
+o3d.io.write_point_cloud("merged.pcd", pcd_combined)
 o3d.io.write_point_cloud("transformed_tsfm.pcd", src_pcd_after)
