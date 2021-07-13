@@ -11,7 +11,7 @@ def preprocess_point_cloud(pcd, voxel_size):
     print(":: Estimate normal with search radius %.3f." % radius_normal)
     pcd_down.estimate_normals(
         o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30))
-    
+
     radius_feature = voxel_size * 5
     print(":: Compute FPFH feature with search radius %.3f." % radius_feature)
     pcd_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
@@ -34,7 +34,7 @@ def prepare_dataset(voxel_size):
     return source, target, source_down, target_down, source_fpfh, target_fpfh
 
 
-voxel_size = 0.5  # means 5cm for this dataset
+voxel_size = 0.1  # means 5cm for this dataset
 source, target, source_down, target_down, source_fpfh, target_fpfh = prepare_dataset(
     voxel_size)
 
@@ -67,6 +67,6 @@ result_fast = execute_fast_global_registration(source_down, target_down,
                                                voxel_size)
 print("Fast global registration took %.3f sec.\n" % (time.time() - start))
 print(result_fast.transformation)
-result_icp = refine_registration(source, target, source_fpfh, target_fpfh,
-                                 voxel_size, result_fast)
-print(result_icp.transformation)
+#result_icp = refine_registration(source, target, source_fpfh, target_fpfh,
+#                                 voxel_size, result_fast)
+#print(result_icp.transformation)
