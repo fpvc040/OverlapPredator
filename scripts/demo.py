@@ -84,11 +84,12 @@ def lighter(color, percent):
 
 def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_saliency, tgt_saliency, tsfm):
     ########################################
-    # 1. input point cloud
+    print("1. input point cloud")
     #src_pcd_before = to_o3d_pcd(src_raw)
     #tgt_pcd_before = to_o3d_pcd(tgt_raw)
-    src_pcd_before = o3d.io.read_point_cloud("assets/1.pcd")
+    src_pcd_before = o3d.io.read_point_cloud("assets/1.pcd") 
     tgt_pcd_before = o3d.io.read_point_cloud("assets/2.pcd")
+    print("point clouds read")
     #src_pcd_before.paint_uniform_color(get_yellow())
     #tgt_pcd_before.paint_uniform_color(get_blue())
     src_pcd_before.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.3, max_nn=50))
@@ -205,7 +206,8 @@ def main(config, demo_loader):
         ########################################
         # run ransac and draw registration
         tsfm = ransac_pose_estimation(src_pcd, tgt_pcd, src_feats, tgt_feats, mutual=False)
-        draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_saliency, tgt_saliency, tsfm)
+        print(tsfm)
+        #draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_saliency, tgt_saliency, tsfm)
 
 
 if __name__ == '__main__':
