@@ -50,13 +50,13 @@ def execute_fast_global_registration(source_down, target_down, source_fpfh,
     return result
 
 
-def refine_registration(source, target, source_fpfh, target_fpfh, voxel_size):
+def refine_registration(source, target, source_fpfh, target_fpfh, voxel_size, result):
     distance_threshold = voxel_size * 0.4
     print(":: Point-to-plane ICP registration is applied on original point")
     print("   clouds to refine the alignment. This time we use a strict")
     print("   distance threshold %.3f." % distance_threshold)
     result = o3d.pipelines.registration.registration_icp(
-        source, target, distance_threshold, result_ransac.transformation,
+        source, target, distance_threshold, result.transformation,
         o3d.pipelines.registration.TransformationEstimationPointToPlane())
     return result
 
@@ -68,5 +68,5 @@ result_fast = execute_fast_global_registration(source_down, target_down,
 print("Fast global registration took %.3f sec.\n" % (time.time() - start))
 print(result_fast)
 result_icp = refine_registration(source, target, source_fpfh, target_fpfh,
-                                 voxel_size)
+                                 voxel_size, result_fast)
 print(result_icp)
