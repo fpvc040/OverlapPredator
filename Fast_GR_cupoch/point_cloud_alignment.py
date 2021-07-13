@@ -66,7 +66,7 @@ result_fast = execute_fast_global_registration(source_down, target_down,
                                                source_fpfh, target_fpfh,
                                                voxel_size)
 print("Fast global registration took %.3f sec.\n" % (time.time() - start))
-print(result_fast)
+print(result_fast.transformation)
 result_icp = refine_registration(source, target, source_fpfh, target_fpfh,
                                  voxel_size, result_fast)
-print(result_icp)
+print(result_icp.transformation)
