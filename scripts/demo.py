@@ -57,8 +57,8 @@ class ThreeDMatchDemo(Dataset):
         src_pcd_diff = src_pcd_diff.voxel_down_sample(0.5)
         tgt_pcd_diff = tgt_pcd_diff.voxel_down_sample(0.5)
                     
-        src_pcd_diff = np.array(np.round(src_pcd_diff.points, 6)) * 0.001
-        tgt_pcd_diff = np.array(np.round(tgt_pcd_diff.points, 6)) * 0.001
+        src_pcd_diff = np.array(np.round(src_pcd_diff.points, 6)) * 0.01
+        tgt_pcd_diff = np.array(np.round(tgt_pcd_diff.points, 6)) * 0.01
 
         print(src_pcd_diff[:10])   
         
@@ -90,25 +90,26 @@ def draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_sal
     src_pcd_before = o3d.io.read_point_cloud("assets/1.pcd") 
     tgt_pcd_before = o3d.io.read_point_cloud("assets/2.pcd")
     print("point clouds read")
+    tsfm[:3,3] = tsfm[:3,3] * 100
     #src_pcd_before.paint_uniform_color(get_yellow())
     #tgt_pcd_before.paint_uniform_color(get_blue())
-    src_pcd_before.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.3, max_nn=50))
-    tgt_pcd_before.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.3, max_nn=50))
+    # src_pcd_before.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.3, max_nn=50))
+    # tgt_pcd_before.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.3, max_nn=50))
 
-    ########################################
-    # 2. overlap colors
-    rot, trans = to_tensor(tsfm[:3,:3]), to_tensor(tsfm[:3,3][:,None])
-    src_overlap = src_overlap[:,None].repeat(1,3).numpy()
-    tgt_overlap = tgt_overlap[:,None].repeat(1,3).numpy()
-    src_overlap_color = lighter(get_yellow(), 1 - src_overlap)
-    tgt_overlap_color = lighter(get_blue(), 1 - tgt_overlap)
-    src_pcd_overlap = copy.deepcopy(src_pcd_before)
-    src_pcd_overlap.transform(tsfm)
-    tgt_pcd_overlap = copy.deepcopy(tgt_pcd_before)
-    src_pcd_overlap.colors = o3d.utility.Vector3dVector(src_overlap_color)
-    tgt_pcd_overlap.colors = o3d.utility.Vector3dVector(tgt_overlap_color)
+    # ########################################
+    # # 2. overlap colors
+    # rot, trans = to_tensor(tsfm[:3,:3]), to_tensor(tsfm[:3,3][:,None])
+    # src_overlap = src_overlap[:,None].repeat(1,3).numpy()
+    # tgt_overlap = tgt_overlap[:,None].repeat(1,3).numpy()
+    # src_overlap_color = lighter(get_yellow(), 1 - src_overlap)
+    # tgt_overlap_color = lighter(get_blue(), 1 - tgt_overlap)
+    # src_pcd_overlap = copy.deepcopy(src_pcd_before)
+    # src_pcd_overlap.transform(tsfm)
+    # tgt_pcd_overlap = copy.deepcopy(tgt_pcd_before)
+    # src_pcd_overlap.colors = o3d.utility.Vector3dVector(src_overlap_color)
+    # tgt_pcd_overlap.colors = o3d.utility.Vector3dVector(tgt_overlap_color)
 
-    ########################################
+    # ########################################
     # 3. draw registrations
     print("TSFM:", tsfm)
     src_pcd_after = copy.deepcopy(src_pcd_before)
@@ -207,7 +208,7 @@ def main(config, demo_loader):
         # run ransac and draw registration
         tsfm = ransac_pose_estimation(src_pcd, tgt_pcd, src_feats, tgt_feats, mutual=False)
         print(tsfm)
-        #draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_saliency, tgt_saliency, tsfm)
+        draw_registration_result(src_raw, tgt_raw, src_overlap, tgt_overlap, src_saliency, tgt_saliency, tsfm)
 
 
 if __name__ == '__main__':
